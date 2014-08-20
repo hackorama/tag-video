@@ -1,0 +1,46 @@
+# make /f Makefile.Windows run
+# $(CPP) $(INCLUDEDIRS) $(CPPFLAGS) -c $< -Fo$@
+#$(CPP) $(CPPFLAGS) $(INCLUDEDIRS) $(SRCS)
+PROGRAM = mytagodecoder.exe
+
+CPP = cl
+LD = cl 
+RC = rc
+
+RES = resource.rc 
+
+INCLUDEDIRS =  /I "IM\include" /I "C:\Program Files\Microsoft SDKs\Windows\v6.1\Samples\Multimedia\DirectShow\BaseClasses"  /I "C:\Program Files\Microsoft SDKs\Windows\v6.1\Include"
+
+LIBDIRS = /LIBPATH:"C:\Program Files\Microsoft SDKs\Windows\v6.1\Samples\Multimedia\DirectShow\BaseClasses\Debug_MBCS" \
+		 /LIBPATH:"C:\Program Files\Microsoft SDKs\Windows\v6.1\Lib" /LIBPATH:"IM\lib\" 
+
+CPPFLAGS = /D "WIN32" /D "_DEBUG" /D "_WINDOWS"  /EHsc  $(INCLUDEDIRS)
+LDFLAGS = /link /OUT:$(PROGRAM) /nodefaultlib:libcmt.lib  $(LIBDIRS)
+
+LIBS =  resource.RES strmiids.lib winmm.lib strmbasd.lib user32.lib ole32.lib gdi32.lib oleaut32.lib advapi32.lib 
+
+SRCS = winmain.cpp guicon.cpp frame.cpp win.cpp video.cpp fuzzy.cpp border.cpp config.cpp decoder.cpp matrix.cpp pattern.cpp shape.cpp  threshold.cpp tagimage.cpp pixmap.cpp
+
+OBJS = winmain.obj guicon.obj frame.obj win.obj video.obj fuzzy.obj border.obj config.obj decoder.obj matrix.obj pattern.obj shape.obj  threshold.obj tagimage.obj pixmap.obj
+
+.c.obj:
+		$(CPP) $(CPPFLAGS) -c $< -Fo$@
+
+
+$(PROGRAM) : $(OBJS)
+		$(LD) $(OBJS) $(LDFLAGS) $(LIBS)
+
+all : $(PROGRAM)  
+
+clean:
+		del $(OBJS) $(PROGRAM) 
+
+run: all
+		$(PROGRAM)
+
+res: 
+	$(RC) $(RES)
+
+
+
+

@@ -1,0 +1,14 @@
+#define IDR_MYMENU 101
+#define IDC_MAIN_STATUS     102
+
+#define IDI_MYICON 201
+
+
+#define ID_FILE_EXIT  9001
+#define ID_VIDEO_STOP  9002
+#define ID_VIDEO_START 9003
+#define ID_OPTIONS_LOG 9004
+#define ID_HELP_HELP  9005
+#define ID_ABOUT_HELP 9006
+
+#define IDD_ABOUT 301
